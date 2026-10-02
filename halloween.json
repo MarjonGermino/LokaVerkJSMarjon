@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "address": { "street": "Laugavegur", "number": 12, "apartment": null, "postalCode": "101" },
+    "location": { "lat": 64.1466, "lng": -21.9265 },
+    "candy": { "dairyFree": true, "nutFree": true },
+    "time": { "from": "17:00", "to": "18:30" },
+    "image": "images/house1.jpg"
+  },
+  {
+    "id": 2,
+    "address": { "street": "Skólavörðustígur", "number": 20, "apartment": 2, "postalCode": "101" },
+    "location": { "lat": 64.1425, "lng": -21.9269 },
+    "candy": { "dairyFree": false, "nutFree": true },
+    "time": { "from": "17:30", "to": "19:00" },
+    "image": "images/house2.jpg"
+  },
+  {
+    "id": 3,
+    "address": { "street": "Hverfisgata", "number": 45, "apartment": null, "postalCode": "101" },
+    "location": { "lat": 64.1456, "lng": -21.9215 },
+    "candy": { "dairyFree": true, "nutFree": false },
+    "time": { "from": "18:00", "to": "19:30" },
+    "image": "images/house3.jpg"
+  },
+  {
+    "id": 4,
+    "address": { "street": "Barónsstígur", "number": 10, "apartment": 1, "postalCode": "101" },
+    "location": { "lat": 64.1438, "lng": -21.9185 },
+    "candy": { "dairyFree": false, "nutFree": false },
+    "time": { "from": "17:00", "to": "18:00" },
+    "image": "images/house4.jpg"
+  },
+  {
+    "id": 5,
+    "address": { "street": "Bergstaðastræti", "number": 25, "apartment": null, "postalCode": "101" },
+    "location": { "lat": 64.1435, "lng": -21.9310 },
+    "candy": { "dairyFree": true, "nutFree": true },
+    "time": { "from": "18:30", "to": "20:00" },
+    "image": "images/house5.jpg"
+  },
+  {
+    "id": 6,
+    "address": { "street": "Rauðarárstígur", "number": 18, "apartment": 3, "postalCode": "105" },
+    "location": { "lat": 64.1440, "lng": -21.9140 },
+    "candy": { "dairyFree": true, "nutFree": false },
+    "time": { "from": "17:00", "to": "19:00" },
+    "image": "images/house6.jpg"
+  },
+  {
+    "id": 7,
+    "address": { "street": "Hringbraut", "number": 50, "apartment": null, "postalCode": "107" },
+    "location": { "lat": 64.1430, "lng": -21.9560 },
+    "candy": { "dairyFree": false, "nutFree": true },
+    "time": { "from": "18:00", "to": "19:00" },
+    "image": "images/house7.jpg"
+  },
+  {
+    "id": 8,
+    "address": { "street": "Melhagi", "number": 15, "apartment": 1, "postalCode": "107" },
+    "location": { "lat": 64.1410, "lng": -21.9500 },
+    "candy": { "dairyFree": true, "nutFree": true },
+    "time": { "from": "17:30", "to": "18:30" },
+    "image": "images/house8.jpg"
+  },
+  {
+    "id": 9,
+    "address": { "street": "Grensásvegur", "number": 8, "apartment": null, "postalCode": "108" },
+    "location": { "lat": 64.1330, "lng": -21.8730 },
+    "candy": { "dairyFree": false, "nutFree": false },
+    "time": { "from": "19:00", "to": "20:30" },
+    "image": "images/house9.jpg"
+  },
+  {
+    "id": 10,
+    "address": { "street": "Háaleitisbraut", "number": 68, "apartment": 4, "postalCode": "108" },
+    "location": { "lat": 64.1290, "lng": -21.8700 },
+    "candy": { "dairyFree": true, "nutFree": true },
+    "time": { "from": "18:00", "to": "20:00" },
+    "image": "images/house10.jpg"
+  },
+  {
+    "id": 11,
+    "address": { "street": "Bústaðavegur", "number": 5, "apartment": null, "postalCode": "108" },
+    "location": { "lat": 64.1230, "lng": -21.8990 },
+    "candy": { "dairyFree": false, "nutFree": true },
+    "time": { "from": "17:00", "to": "18:30" },
+    "image": "images/house11.jpg"
+  },
+  {
+    "id": 12,
+    "address": { "street": "Snorrabraut", "number": 33, "apartment": 2, "postalCode": "105" },
+    "location": { "lat": 64.1415, "lng": -21.9150 },
+    "candy": { "dairyFree": true, "nutFree": false },
+    "time": { "from": "19:00", "to": "20:00" },
+    "image": "images/house12.jpg"
+  }
+]
