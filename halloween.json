@@ -49,8 +49,8 @@
   },
   {
     "id": 7,
-    "address": { "street": "Hringbraut", "number": 50, "apartment": null, "postalCode": "107" },
-    "location": { "lat": 64.1430, "lng": -21.9560 },
+    "address": { "street": "Langholtsvegur", "number": 71, "apartment": null, "postalCode": "101" },
+    "location": { "lat": 64.139141, "lng": -21.859326 },
     "candy": { "dairyFree": false, "nutFree": true },
     "time": { "from": "18:00", "to": "19:00" },
     "image": "images/house7.jpg"
