@@ -1,3 +1,7 @@
+.cardRows{
+    display: flex;
+    flex-direction: row;
+}
 .cards-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, 280px);
