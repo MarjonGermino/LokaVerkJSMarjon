@@ -41,7 +41,7 @@ function filter(Dta){
     i.addEventListener('input', function() {
         console.log(i.value);
         o.innerHTML = i.value; //til að updatea nr hjá sliderinn
-        // createCard(Dta, i.value)
+        // createCard(Dta, parseInt(i.value))
     }, false);
 }
 async function main() {
