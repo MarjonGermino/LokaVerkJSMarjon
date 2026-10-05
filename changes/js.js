@@ -3,7 +3,7 @@ async function getData() {
     let response = (await fetch('../halloween.json'))
     return await response.json();
 };
-function createCard(data){
+function createCard(data, filternumb){
     document.querySelector(".cardTemplate").remove(); //removea templateið
     const $cardRows = document.querySelector(".cardRows"); //to put the cards into 'cardRows'
     for (let i = 0; i < data.length; i++){
@@ -25,30 +25,30 @@ function createCard(data){
         card.classList.add("card");
         card.innerHTML = cardHTML;
         $cardRows.append(card);
-
+        
         console.log(x)
     }
 }
-function filter(){
+function filter(Dta){
     let $listRange = document.querySelector(".listRange");
 
     let i = document.querySelector('input'),
     o = document.querySelector('output');
 
     o.innerHTML = i.value;
+    createCard(Dta, 100)
 
-    i.addEventListener('input', function () {
+    i.addEventListener('input', function() {
         console.log(i.value);
-        
+        o.innerHTML = i.value; //til að updatea nr hjá sliderinn
+        // createCard(Dta, i.value)
     }, false);
 }
 async function main() {
     const jsonData = await getData();
-    createCard(jsonData)
-    console.log(jsonData.length);
+    console.log('JsonDataLength: ',jsonData.length);
 
-    filter()
-    
-    
+    filter(jsonData)
+
 }
 main();
