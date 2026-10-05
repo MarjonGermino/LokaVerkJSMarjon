@@ -55,3 +55,8 @@
 .cardTemplate hr {
     border-color: #444;
 }
+/* Slider */
+#listRange {
+    width: 30rem;
+    max-width: 100%;
+}

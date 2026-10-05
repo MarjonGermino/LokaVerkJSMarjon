@@ -28,11 +28,27 @@ function createCard(data){
 
         console.log(x)
     }
-    
+}
+function filter(){
+    let $listRange = document.querySelector(".listRange");
+
+    let i = document.querySelector('input'),
+    o = document.querySelector('output');
+
+    o.innerHTML = i.value;
+
+    i.addEventListener('input', function () {
+        console.log(i.value);
+        
+    }, false);
 }
 async function main() {
     const jsonData = await getData();
     createCard(jsonData)
     console.log(jsonData.length);
+
+    filter()
+    
+    
 }
 main();
