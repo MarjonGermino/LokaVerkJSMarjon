@@ -1,12 +1,15 @@
 "use strict";
 let changingValues = {
-
+    howfarRange: 100,
+    dairyFree: true,
+    nutFree: true,
+    time: {from: "17:00", to: "20:30"}
 }
 async function getData() {
     let response = (await fetch('../halloween.json'))
     return await response.json();
 };
-function createCard(data, filternumb){
+function createCard(data, values){
     document.querySelector(".cardTemplate").remove(); //removea templateið
     const $cardRows = document.querySelector(".cardRows"); //to put the cards into 'cardRows'
     for (let i = 0; i < data.length; i++){
@@ -32,19 +35,46 @@ function createCard(data, filternumb){
     }
 }
 function filter(Dta){
-    let $listRange = document.querySelector(".listRange");
-
-    let input = document.querySelector('input'),
+    const inputFromSlider = document.querySelector('input'),
     output = document.querySelector('output');
-
-    output.innerHTML = i.value;
+    output.innerHTML = inputFromSlider.value;
     createCard(Dta, 100)
+    // createCard(Dta, changingValues) parseInt(i.value)
+    inputFromSlider.addEventListener('input', function() {
+        output.innerHTML = inputFromSlider.value; //til að updatea nr hjá sliderinn
+        changingValues.howfarRange = parseInt(inputFromSlider.value)
 
-    input.addEventListener('input', function() {
-        console.log(input.value);
-        output.innerHTML = input.value; //til að updatea nr hjá sliderinn
-        // createCard(Dta, parseInt(i.value))
+        console.log(changingValues)
+
     }, false);
+
+    const nutFreeSwitch = document.querySelector('#nutFree');
+    nutFreeSwitch.addEventListener('change', () => {
+        changingValues.nutFree = nutFreeSwitch.checked;
+        console.log(changingValues);
+    
+    });
+    const dairyFreeSwitch = document.querySelector('#dairyFree');
+    dairyFreeSwitch.addEventListener('change', () => {
+        changingValues.dairyFree = dairyFreeSwitch.checked;
+        console.log(changingValues);
+    });
+
+
+    //Time
+    flatpickr("#fra", {
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "H:i",
+        time_24hr: true
+    });
+
+    flatpickr("#til", {
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "H:i",
+        time_24hr: true
+    });
 }
 
 async function main() {

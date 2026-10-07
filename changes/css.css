@@ -1,62 +1,199 @@
-.cardRows{
-    display: flex;
-    flex-direction: row;
+/* CSS er alt frá gervigreind */
+
+/* ---------- Base ---------- */
+* {
+    box-sizing: border-box;
 }
-.cards-grid {
+
+body {
+    margin: 0;
+    padding: 2rem;
+    background: #0f0f0f;
+    color: #f5f5f5;
+}
+
+/* ---------- Cards ---------- */
+.cardRows {
     display: grid;
-    grid-template-columns: repeat(auto-fit, 280px);
+    grid-template-columns: repeat(auto-fit, minmax(280px, 320px));
+    justify-content: center;
     gap: 1.5rem;
+    width: 100%;
+    margin-bottom: 2rem;
 }
+
 .cardTemplate {
-    background-color: #1c1c1c;
+    width: 100%;
+    padding: 1.25rem;
+
+    background: #1c1c1c;
     border: 2px solid #ff8c00;
-    border-radius: 15px;
-    width: 20em;
+    border-radius: 14px;
 
-    padding: 1.5rem;
-
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 5px 16px rgba(0, 0, 0, 0.35);
+    overflow: hidden;
 
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-
-    overflow: hidden;
 }
+
 .cardTemplate:hover {
     transform: translateY(-5px);
-
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
 }
 
-.cardTemplate p {margin: 0.4rem 0;}
+.cardTemplate p {
+    margin: 0.4rem 0;
+}
+
 .cardTemplate #street {
+    margin-bottom: 0.25rem;
     font-size: 1.5rem;
-    font-weight: bold;
+    font-weight: 700;
     color: #ff8c00;
 }
-.cardTemplate #postalCode {color: #aaa;}
-.cardTemplate #number {font-weight: bold;}
-.cardTemplate #isApartment {font-size: 0.9rem;}
-.cardTemplate #location {
-    font-size: 0.9rem;
-    color: #aaa;
+
+.cardTemplate #postalCode,
+.cardTemplate #location,
+.cardTemplate #isApartment {
+    color: #b3b3b3;
 }
 
-.cardTemplate #candyAlergyies {margin-top: 1rem;}
-.cardTemplate #time {font-weight: bold;}
+.cardTemplate #number,
+.cardTemplate #time {
+    font-weight: 700;
+}
+
+.cardTemplate #candyAlergyies {
+    margin-top: 0.9rem;
+}
 
 .cardTemplate img {
+    display: block;
     width: 100%;
     height: 200px;
+    margin-top: 1rem;
+
     object-fit: cover;
     border-radius: 10px;
-    margin-top: 1rem;
 }
 
 .cardTemplate hr {
-    border-color: #444;
+    border: 0;
+    border-top: 1px solid #444;
+    margin: 0.75rem 0;
 }
-/* Slider */
+
+/* ---------- Filters ---------- */
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+
+    width: min(100%, 1000px);
+    margin: 0 auto;
+    padding: 1.25rem;
+
+    background: #181818;
+    border: 1px solid #333;
+    border-radius: 14px;
+}
+
+.filters > div {
+    margin: 0;
+}
+
+.filters label {
+    margin: 0;
+}
+
+/* ---------- Range slider ---------- */
 #listRange {
-    width: 30rem;
-    max-width: 100%;
+    width: min(30rem, 80vw);
+    margin: 0;
+}
+
+/* ---------- Time inputs ---------- */
+.times {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.times input {
+    width: 7rem;
+    margin: 0;
+
+    text-align: center;
+    font-weight: 700;
+
+    color: #ff8c00;
+    background: #1c1c1c;
+
+    border: 2px solid #ff8c00;
+    border-radius: 10px;
+}
+
+.times input:hover,
+.times input:focus {
+    border-color: #ffad42;
+    box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.2);
+}
+
+/* ---------- Flatpickr ---------- */
+.flatpickr-calendar {
+    background: #1c1c1c;
+    border: 2px solid #ff8c00;
+    border-radius: 12px;
+}
+
+.flatpickr-time input,
+.flatpickr-time .flatpickr-time-separator,
+.flatpickr-time .flatpickr-am-pm {
+    color: #ff8c00;
+    background: transparent;
+    font-weight: 700;
+}
+
+.flatpickr-time input:hover,
+.flatpickr-time input:focus,
+.flatpickr-time .flatpickr-am-pm:hover {
+    background: #303030;
+}
+
+.flatpickr-time .numInputWrapper span.arrowUp::after {
+    border-bottom-color: #ff8c00;
+}
+
+.flatpickr-time .numInputWrapper span.arrowDown::after {
+    border-top-color: #ff8c00;
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 700px) {
+    body {
+        padding: 1rem;
+    }
+
+    .cardRows {
+        grid-template-columns: 1fr;
+    }
+
+    .filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #listRange {
+        width: 100%;
+    }
+
+    .times {
+        justify-content: center;
+    }
+
+    .times input {
+        width: 50%;
+    }
 }
