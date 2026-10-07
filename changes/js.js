@@ -1,4 +1,7 @@
 "use strict";
+let changingValues = {
+
+}
 async function getData() {
     let response = (await fetch('../halloween.json'))
     return await response.json();
@@ -8,7 +11,7 @@ function createCard(data, filternumb){
     const $cardRows = document.querySelector(".cardRows"); //to put the cards into 'cardRows'
     for (let i = 0; i < data.length; i++){
         let x = data[i]
-
+        
         const cardHTML = `
             <div class="cardTemplate">
                 <hr>
@@ -25,25 +28,25 @@ function createCard(data, filternumb){
         card.classList.add("card");
         card.innerHTML = cardHTML;
         $cardRows.append(card);
-        
         console.log(x)
     }
 }
 function filter(Dta){
     let $listRange = document.querySelector(".listRange");
 
-    let i = document.querySelector('input'),
-    o = document.querySelector('output');
+    let input = document.querySelector('input'),
+    output = document.querySelector('output');
 
-    o.innerHTML = i.value;
+    output.innerHTML = i.value;
     createCard(Dta, 100)
 
-    i.addEventListener('input', function() {
-        console.log(i.value);
-        o.innerHTML = i.value; //til að updatea nr hjá sliderinn
+    input.addEventListener('input', function() {
+        console.log(input.value);
+        output.innerHTML = input.value; //til að updatea nr hjá sliderinn
         // createCard(Dta, parseInt(i.value))
     }, false);
 }
+
 async function main() {
     const jsonData = await getData();
     console.log('JsonDataLength: ',jsonData.length);
