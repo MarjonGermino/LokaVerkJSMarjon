@@ -19,10 +19,10 @@ function createCard(data, values){
             <div class="cardTemplate">
                 <hr>
                 <p id="street">${x.address.street}</p>
-                <p id="postalCode">${x.address.postalCode}</p>
-                <p id="number">${x.address.number}</p>
+                <p id="postalCode">Póst Númer: ${x.address.postalCode}</p>
+                <p id="number">Númer: ${x.address.number}</p>
                 <p id="location">${x.location.lat}, ${x.location.lng}</p>
-                <p id="time">${x.time.from} - ${x.time.to}</p>
+                <p id="time">Tími: ${x.time.from} - ${x.time.to}</p>
                 <img src="${x.image}" alt="houseImage">
                 <hr>
             </div>
@@ -66,15 +66,29 @@ function filter(Dta){
         enableTime: true,
         noCalendar: true,
         dateFormat: "H:i",
-        time_24hr: true
+        time_24hr: true,
+        minTime: "17:00",
+        maxTime: "20:30"
     });
-
     flatpickr("#til", {
         enableTime: true,
         noCalendar: true,
         dateFormat: "H:i",
-        time_24hr: true
+        time_24hr: true,
+        minTime: "17:00",
+        maxTime: "20:30"
     });
+    let fromTime = document.querySelector("#fra");
+    let toTime = document.querySelector("#til");
+
+    fromTime.addEventListener('change', () => {
+        changingValues.time.from = fromTime.value;
+        console.log(changingValues);
+    })
+    toTime.addEventListener('change', () => {
+        changingValues.time.to = toTime.value;
+        console.log(changingValues);
+    })
 }
 
 async function main() {
