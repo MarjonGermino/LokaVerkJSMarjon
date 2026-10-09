@@ -4,14 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lokaverkefni JS_Tskoli (Marjón)</title>
-    <link rel="stylesheet" href="changes/css.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
     <link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@2.0.0-alpha.1/dist/leaflet.css"
+    integrity="sha256-P+hWJNlpL+GBSRYC7cdsDbQH91URmpDeOzLp7DbFRtE="
+    crossorigin=""/>
+    <link rel="stylesheet" href="changes/css.css">
 </head>
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js"></script>
-    <script src="changes/js.js" defer></script>
+    <div id="map"></div>
+     <div class="filters">
+        <div>
+            <input
+            type="range" id="listRange"
+            min="0" max="100"
+            value="100" step="5"/>
+            <output></output>
+        </div>
+      
+        </script>
+        <div class="times">
+            <input id="fra" aria-label="Frá">
+            <input id="til" aria-label="Til">
+        </div>
+        <!-- í JS till þess að filtera fra&til. þarftu að nota time slot sem er í .json skalinu sem er sam kvæmt við jsonið -->
+
+    </div>
     <div class="cardRows">
         <div class="cardTemplate">
             <hr>
@@ -28,36 +47,33 @@
             <hr>
         </div>
     </div>
-    <div class="filters">
-        <div>
-            <input
-            type="range" id="listRange"
-            min="0" max="100"
-            value="100" step="5"/>
-            <output></output>
-        </div>
-        <div>
-            <label>
-                <input type="checkbox" role="switch" id="nutFree">
-                Nut free
-            </label>
-        </div>
-        <div>
-            <label>
-                <input type="checkbox" role="switch" id="dairyFree">
-                dairy free
-            </label>
-        </div>
-
-            
-        </script>
-        <div class="times">
-            <input id="fra" aria-label="Frá">
-            <input id="til" aria-label="Til">
-        </div>
-
-
-    </div>
     
+    <script type="importmap">
+    {
+        "imports": {
+            "leaflet": "https://cdn.jsdelivr.net/npm/leaflet@2.0.0-alpha.1/dist/leaflet.js"
+        },
+        "integrity": {
+            "https://cdn.jsdelivr.net/npm/leaflet@2.0.0-alpha.1/dist/leaflet.js": "sha256-gj5JhNAaMi6LCs+jVFOk8sXDe1sWSS2Zlc87m+trLiQ="
+        }
+    }
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js"></script>
+    <script type="module">
+        import {LeafletMap, TileLayer, Marker, Circle, Polygon, Popup} from 'leaflet';
+        const map = new LeafletMap('map').setView([64.1466, -21.9426], 12); // Reykjavík
+
+        new TileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        window.map = map;       // so js.js can use it
+        window.Marker = Marker;
+
+            // ...
+    </script>
+    <script src="changes/js.js" defer></script>
 </body>
 </html>

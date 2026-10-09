@@ -9,29 +9,47 @@ async function getData() {
     let response = (await fetch('../halloween.json'))
     return await response.json();
 };
-function createCard(data, values){
-    document.querySelector(".cardTemplate").remove(); //removea templateið
+
+function createCard(data){
+    document.querySelector(".cardRows")
     const $cardRows = document.querySelector(".cardRows"); //to put the cards into 'cardRows'
     for (let i = 0; i < data.length; i++){
         let x = data[i]
+        let cardHTML
         
-        const cardHTML = `
+        const cardchecker = (htmlCard) =>{ //checkar ef cardið er ekki undifined þá býr til það
+            if (htmlCard !== undefined){
+                const card = document.createElement("div");
+                card.classList.add("card");
+                card.innerHTML = cardHTML;
+                $cardRows.append(card);
+                console.log(x)
+            }
+        }
+        cardHTML = `
             <div class="cardTemplate">
                 <hr>
                 <p id="street">${x.address.street}</p>
                 <p id="postalCode">Póst Númer: ${x.address.postalCode}</p>
                 <p id="number">Númer: ${x.address.number}</p>
+                <p id="dairyfree">Dairy free: ${x.candy.dairyFree}</p>
+                <p id="nutFree">Nut Free: ${x.candy.nutFree}</p>
                 <p id="location">${x.location.lat}, ${x.location.lng}</p>
                 <p id="time">Tími: ${x.time.from} - ${x.time.to}</p>
                 <img src="${x.image}" alt="houseImage">
                 <hr>
             </div>
         `;
-        const card = document.createElement("div");
-        card.classList.add("card");
-        card.innerHTML = cardHTML;
-        $cardRows.append(card);
-        console.log(x)
+        cardchecker(cardHTML)
+        
+        
+        
+    }
+}
+function mapMarkers(data){
+    for (let i = 0; i < data.length; i++){
+        let x = data[i]
+        const marker = new Marker([x.location.lat, x.location.lng]).addTo(map);
     }
 }
 function filter(Dta){
@@ -39,27 +57,13 @@ function filter(Dta){
     output = document.querySelector('output');
     output.innerHTML = inputFromSlider.value;
     createCard(Dta, 100)
-    // createCard(Dta, changingValues) parseInt(i.value)
     inputFromSlider.addEventListener('input', function() {
         output.innerHTML = inputFromSlider.value; //til að updatea nr hjá sliderinn
+        // createCard(Dta, changingValues) parseInt(i.value)
         changingValues.howfarRange = parseInt(inputFromSlider.value)
-
         console.log(changingValues)
-
+        
     }, false);
-
-    const nutFreeSwitch = document.querySelector('#nutFree');
-    nutFreeSwitch.addEventListener('change', () => {
-        changingValues.nutFree = nutFreeSwitch.checked;
-        console.log(changingValues);
-    
-    });
-    const dairyFreeSwitch = document.querySelector('#dairyFree');
-    dairyFreeSwitch.addEventListener('change', () => {
-        changingValues.dairyFree = dairyFreeSwitch.checked;
-        console.log(changingValues);
-    });
-
 
     //Time
     flatpickr("#fra", {
@@ -84,17 +88,19 @@ function filter(Dta){
     fromTime.addEventListener('change', () => {
         changingValues.time.from = fromTime.value;
         console.log(changingValues);
-    })
+    });
     toTime.addEventListener('change', () => {
         changingValues.time.to = toTime.value;
         console.log(changingValues);
-    })
-}
+    });
+
+};
 
 async function main() {
     const jsonData = await getData();
     console.log('JsonDataLength: ',jsonData.length);
 
+    mapMarkers(jsonData)
     filter(jsonData)
 
 }
