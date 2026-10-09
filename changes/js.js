@@ -48,16 +48,41 @@ function createCard(data){
     }
 }
 function mapMarkers(data){
+    const redIcon = new Icon({ iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png', 
+        iconSize: [25, 41], 
+        iconAnchor: [12, 41], 
+        popupAnchor: [1, -34], 
+        shadowSize: [41, 41] 
+    });
+    const greenIcon = new Icon({ iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png', 
+        iconSize: [25, 41], 
+        iconAnchor: [12, 41], 
+        popupAnchor: [1, -34], 
+        shadowSize: [41, 41] 
+    });
+    const yellowIcon = new Icon({ iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-yellow.png', 
+        iconSize: [25, 41], 
+        iconAnchor: [12, 41], 
+        popupAnchor: [1, -34], 
+        shadowSize: [41, 41] 
+    });
     for (let i = 0; i < data.length; i++){
         let x = data[i]
-        const marker = new Marker([x.location.lat, x.location.lng]).addTo(map);
+
+        if (x.candy.dairyFree){
+            const marker = new Marker([x.location.lat, x.location.lng], {icon: redIcon }).addTo(map);
+        }
+        else if (x.candy.nutFree){
+            const marker = new Marker([x.location.lat, x.location.lng], {icon: yellowIcon }).addTo(map);
+        }
+        else{ 
+            const marker = new Marker([x.location.lat, x.location.lng], {icon: greenIcon }).addTo(map);
+        }
     }
-    const meMarker = new CircleMarker([whereAmI.lat, whereAmI.lng],{
-        color: "orange",
-        fillColor: "orange",
-        fillOpacity: 1,
-        radius: 8
-    }).addTo(map)
+    
+    const userMarker = new Marker([whereAmI.lat, whereAmI.lng],).addTo(map);
+
+
 }
 function filter(Dta){
     const inputFromSlider = document.querySelector('input'),
