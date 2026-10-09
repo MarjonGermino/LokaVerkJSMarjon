@@ -5,6 +5,10 @@ let changingValues = {
     nutFree: true,
     time: {from: "17:00", to: "20:30"}
 }
+let whereAmI = {
+    lat: 64.13890271227935,
+    lng: -21.903670386999238
+}
 async function getData() {
     let response = (await fetch('../halloween.json'))
     return await response.json();
@@ -41,9 +45,6 @@ function createCard(data){
             </div>
         `;
         cardchecker(cardHTML)
-        
-        
-        
     }
 }
 function mapMarkers(data){
@@ -51,6 +52,12 @@ function mapMarkers(data){
         let x = data[i]
         const marker = new Marker([x.location.lat, x.location.lng]).addTo(map);
     }
+    const meMarker = new CircleMarker([whereAmI.lat, whereAmI.lng],{
+        color: "orange",
+        fillColor: "orange",
+        fillOpacity: 1,
+        radius: 8
+    }).addTo(map)
 }
 function filter(Dta){
     const inputFromSlider = document.querySelector('input'),
