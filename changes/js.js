@@ -54,10 +54,12 @@ function createCard(data){
                 <p id="street">${x.address.street}</p>
                 <p id="postalCode">Póst Númer: ${x.address.postalCode}</p>
                 <p id="number">Númer: ${x.address.number}</p>
-                <p id="dairyfree">Dairy free: ${x.candy.dairyFree}</p>
-                <p id="nutFree">Nut Free: ${x.candy.nutFree}</p>
-                <p id="location">${x.location.lat}, ${x.location.lng}</p>
+                <p id="dairyfree">Dairy free: ${x.candy.dairyFree ? 'Yes':'No'}</p>
+                <p id="nutFree">Nut Free: ${x.candy.nutFree ? 'Yes':'No'}</p>
+                <p id="location">lat:${x.location.lat}, long:${x.location.lng}</p>
                 <p id="time">Tími: ${x.time.from} - ${x.time.to}</p>
+                <i>distance: ${calculateDistance(whereAmI.lat, whereAmI.lng, 
+                                x.location.lat, x.location.lng).toFixed(2)} km</i>
                 <img src="${x.image}" alt="houseImage">
                 <hr>
             </div>

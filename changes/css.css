@@ -174,7 +174,28 @@ body {
 /* map */
 #map {
     height: 25em;
+}
+/* location */
+.location {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 0 auto;
+}
 
+.location button {
+    width: auto;
+    margin: 0;
+}
+
+.location #status {
+    margin: 0;
+}
+
+.location #map-link {
+    overflow-wrap: anywhere;
 }
 
 /* ---------- Mobile ---------- */
