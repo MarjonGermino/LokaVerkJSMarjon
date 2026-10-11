@@ -1,8 +1,6 @@
 "use strict";
 let changingValues = {
-    howfarRange: 100,
-    dairyFree: true,
-    nutFree: true,
+    howfarRange: 12,
     time: {from: "17:00", to: "20:30"}
 }
 let whereAmI = {
@@ -28,17 +26,7 @@ function calculateDistance(lat1, lng1, lat2, lng2) { //Tók þetta frá Gervigre
 
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
-    return R * c *10; // *1000 fyrir metrum
-}
-class Card{
-    constructor(address, location, candy, time, image, html){
-        this.address = address
-        this.location = location
-        this.candy = candy
-        this.time = time
-        this.image = image
-        this.html = html
-    }
+    return R * c; // *1000 fyrir metrum
 }
 
 function createCard(data){
@@ -49,14 +37,12 @@ function createCard(data){
     let emptyArrayOfCards = []
     let cardHTML;
 
-
-    const cardchecker = (htmlCard) =>{ //checkar ef cardið er ekki undifined þá býr til það
+    const cardchecker = (htmlCard) => { //checkar ef cardið er ekki undifined þá býr til það
         if (htmlCard !== undefined){
             const card = document.createElement("div");
             card.classList.add("card");
             card.innerHTML = cardHTML;
             $cardRows.append(card);
-            console.log(x)
         }
     }
 
@@ -76,25 +62,30 @@ function createCard(data){
                 <hr>
             </div>
         `;
-        emptyArrayOfCards.push(new Card(x.address, x.postalCode, x.location, 
-                                        x.candy, x.time, x.image, cardHTML))
+        if (i+1 <= changingValues.howfarRange && //Filter
+            x.time.from >= changingValues.time.from &&
+            x.time.to <= changingValues.time.to){
+            cardchecker(cardHTML)
+            console.log(i)
+        }
     }
-    
-    
-        
 }
 
-function filter(Dta){
+function events(Dta){
     const inputFromSlider = document.querySelector('input'),
     output = document.querySelector('output');
     
     output.innerHTML = inputFromSlider.value;
-    createCard(Dta, 100)
+    const filteredData = Dta.filter((house) => {
+        const distance = calculateDistance(whereAmI.lat, whereAmI.lng, house.location.lat, house.location.lng );
+        return distance <= changingValues.howfarRange;
+    });
+    createCard(filteredData)
     inputFromSlider.addEventListener('input', function() {
         output.innerHTML = inputFromSlider.value; //til að updatea nr hjá sliderinn
         changingValues.howfarRange = parseInt(inputFromSlider.value)
         console.log(changingValues)
-        createCard(Dta, changingValues)
+        createCard(filteredData)
     }, false);
     
     //Time
@@ -119,10 +110,12 @@ function filter(Dta){
 
     fromTime.addEventListener('change', () => {
         changingValues.time.from = fromTime.value;
+        createCard(filteredData)
         console.log(changingValues);
     });
     toTime.addEventListener('change', () => {
         changingValues.time.to = toTime.value;
+        createCard(filteredData)
         console.log(changingValues);
     });
 
@@ -158,15 +151,53 @@ function mapMarkers(data){
             const marker = new Marker([x.location.lat, x.location.lng], {icon: greenIcon }).addTo(map);
         }
     }
-    const userMarker = new Marker([whereAmI.lat, whereAmI.lng],).addTo(map);
+    
 }
+
+function geoFindMe() {
+  const status = document.querySelector("#status");
+  const mapLink = document.querySelector("#map-link");
+
+  mapLink.href = "";
+  mapLink.textContent = "";
+
+  function success(position) {
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+
+    whereAmI.lat = latitude;
+    whereAmI.lng = longitude;
+    const userMarker = new Marker([whereAmI.lat, whereAmI.lng],).addTo(map);
+
+    status.textContent = "";
+    mapLink.href = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
+    mapLink.textContent = `Latitude: ${latitude} °, Longitude: ${longitude} °`;
+
+    console.log(changingValues.lat, changingValues.lng)
+  }
+
+  function error() {
+    status.textContent = "Unable to retrieve your location";
+    const userMarker = new Marker([whereAmI.lat, whereAmI.lng],).addTo(map); //situr default markerinn sem er tskoli HÁT
+  }
+
+  if (!navigator.geolocation) {
+    status.textContent = "Geolocation is not supported by your browser";
+  } else {
+    status.textContent = "Locating…";
+    navigator.geolocation.getCurrentPosition(success, error);
+  }
+}
+
+
 
 async function main() {
     const jsonData = await getData();
     console.log('JsonDataLength: ',jsonData.length);
 
     mapMarkers(jsonData)
-    filter(jsonData)
+    events(jsonData)
+    document.querySelector("#find-me").addEventListener("click", geoFindMe);
 
 }
 main();
